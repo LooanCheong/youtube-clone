@@ -1,20 +1,19 @@
-import experss from "express";
+import express from "express";
 
 const PORT = 4000;
 
-const app = experss();
+const app = express();
 
-const handleHome = (req, res) => {
+const logger = (req, res, next) => {
+  console.log(`${req.method}  ${req.url}`);
+  next();
+};
+
+const handleHome = (req, res, next) => {
   return res.send("wow");
 };
 
-const handleLogin = (req, res) => {
-  return res.send("Login here.");
-};
-
-app.get("/", handleHome);
-
-app.get("/login", handleLogin);
+app.get("/", logger, handleHome);
 
 const handleListening = () =>
   console.log(`server listening on port http://localhost:${PORT}`);
