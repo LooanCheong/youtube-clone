@@ -1,8 +1,3 @@
-const fakeUser = {
-  username: "Yejun",
-  loggedIn: false,
-};
-
 export const trending = (req, res) => {
   const videos = [
     {
