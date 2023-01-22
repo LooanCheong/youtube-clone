@@ -155,19 +155,30 @@ export const postEdit = async (req, res) => {
     },
     body: { name, email, username, location },
   } = req;
-  let searchParam = [];
+  let searchEmail = [];
+  let searchUsername = [];
   if (email !== sessionEmail) {
-    searchParam.push({ email });
+    searchEmail.push({ email });
   }
   if (username !== sessionUsername) {
-    searchParam.push({ username });
+    searchUsername.push({ username });
   }
-  if (searchParam) {
-    const foundUser = await User.findOne({ $or: searchParam });
+
+  const foundUser = await User.findOne({
+    $or: [{ searchUsername }, { searchEmail }],
+  });
+  if (searchEmail.length != 0) {
     if (foundUser && foundUser._id.toString() !== _id) {
       return res.status(400).render("edit-profile", {
         pageTitle: "Edit Profile",
-        errorMessage: "This Username / E-mail is already taken.",
+        errorMessage: "This E-mail is already taken.",
+      });
+    }
+  } else if (searchUsername.length != 0) {
+    if (foundUser && foundUser._id.toString() !== _id) {
+      return res.status(400).render("edit-profile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "This Username is already taken.",
       });
     }
   }
