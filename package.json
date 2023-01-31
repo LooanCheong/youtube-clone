@@ -7,7 +7,7 @@
     "url": "git+https://github.com/LooanCheong/youtube-clone.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
+    "dev": "nodemon",
     "assets": "webpack --config webpack.config.js"
   },
   "author": "Yejun",
