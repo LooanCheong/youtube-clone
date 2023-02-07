@@ -38,7 +38,7 @@ const handleVolumeChange = (e) => {
     video.muted = false;
     muteBtn.innerText = "Mute";
   }
-  if (value == 0) {
+  if (value === "0") {
     video.muted = true;
     muteBtn.innerText = "Unmute";
   }
