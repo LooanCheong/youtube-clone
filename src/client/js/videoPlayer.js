@@ -6,6 +6,7 @@ const volumeRange = document.getElementById("volume");
 
 let volumeValue = 0.5;
 video.volume = volumeValue;
+let localVolume = volumeValue;
 
 const handlePlayClick = (e) => {
   if (video.paused) {
@@ -44,10 +45,20 @@ const handleVolumeChange = (e) => {
     muteBtn.innerText = "Unmute";
   }
   if (muteBtn.click) {
-    volumeValue = 0.5;
+    volumeValue = localVolume;
+  }
+};
+
+const handleVolumeChangeCheck = (e) => {
+  const {
+    target: { value },
+  } = e;
+  if (value != 0) {
+    localVolume = value;
   }
 };
 
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
+volumeRange.addEventListener("change", handleVolumeChangeCheck);
