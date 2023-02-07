@@ -19,7 +19,7 @@ const handlePlayClick = (e) => {
 const handlePause = () => (playBtn.innerText = "Play");
 const handlePlay = () => (playBtn.innerText = "Pause");
 
-const handleMute = (e) => {
+const handleMute = () => {
   if (video.muted) {
     video.muted = false;
   } else {
