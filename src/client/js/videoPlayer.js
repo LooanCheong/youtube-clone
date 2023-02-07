@@ -19,7 +19,7 @@ const handlePlayClick = (e) => {
 const handlePause = () => (playBtn.innerText = "Play");
 const handlePlay = () => (playBtn.innerText = "Pause");
 
-const handleMute = () => {
+const handleMuteClick = () => {
   if (video.muted) {
     video.muted = false;
   } else {
@@ -42,5 +42,5 @@ handleVolumeChange = (e) => {
 };
 
 playBtn.addEventListener("click", handlePlayClick);
-muteBtn.addEventListener("click", handleMute);
+muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
