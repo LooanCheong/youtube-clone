@@ -29,7 +29,7 @@ const handleMuteClick = () => {
   volumeRange.value = video.muted ? 0 : volumeValue;
 };
 
-handleVolumeChange = (e) => {
+const handleVolumeChange = (e) => {
   const {
     target: { value },
   } = e;
