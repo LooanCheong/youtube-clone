@@ -74,6 +74,9 @@ const handleLoadedMetadata = () => {
 const handleTimeupdate = () => {
   currentTime.innerText = formatTime(Math.floor(video.currentTime));
   timeline.value = Math.floor(video.currentTime);
+  if (currentTime.innerText === totalTime.innerText) {
+    play.innerText = "Play";
+  }
 };
 
 const handleTimelineChange = (e) => {
