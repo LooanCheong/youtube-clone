@@ -84,16 +84,19 @@ const handleTimeupdate = () => {
   }
 };
 
-const handleVideoClick = () => {
+const toggleVideoPlay = () => {
   video.paused ? video.play() : video.pause();
   playBtn.innerText = video.paused ? "Play" : "Pause";
+};
+
+const handleVideoClick = () => {
+  toggleVideoPlay();
 };
 
 const handleVideoWithSpaceBtn = (e) => {
   if (e.keyCode === 32) {
     e.preventDefault();
-    video.paused ? video.play() : video.pause();
-    playBtn.innerText = video.paused ? "Play" : "Pause";
+    toggleVideoPlay();
   }
 };
 
