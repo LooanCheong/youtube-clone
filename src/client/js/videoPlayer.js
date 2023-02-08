@@ -143,7 +143,7 @@ const handleVideoDoubleClick = () => {
   toggleFullScreen();
 };
 
-//비디오 플레이어 토글 파트
+//비디오 플레이어 팝업 파트
 const hideControls = () => videoControls.classList.remove("showing");
 
 const handleMouseMove = () => {
