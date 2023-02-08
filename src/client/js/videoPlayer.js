@@ -84,6 +84,14 @@ const handleVideoClick = () => {
   playBtn.innerText = video.paused ? "Play" : "Pause";
 };
 
+const handleVideoWithSpaceBtn = (e) => {
+  if (e.keyCode === 32) {
+    e.preventDefault();
+    video.paused ? video.play() : video.pause();
+    playBtn.innerText = video.paused ? "Play" : "Pause";
+  }
+};
+
 let videoPlayStatus = false;
 let setVideoPlayStatus = false;
 
@@ -137,3 +145,4 @@ video.addEventListener("dblclick", handleVideoDoubleClick);
 timeline.addEventListener("input", handleTimelineChange);
 timeline.addEventListener("change", handleTimelineSet);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+document.addEventListener("keydown", handleVideoWithSpaceBtn);
