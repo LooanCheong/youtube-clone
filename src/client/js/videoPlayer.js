@@ -114,7 +114,7 @@ const handleTimelineSet = () => {
   setVideoPlayStatus = false;
 };
 
-const handleFullscreen = () => {
+const toggleFullScreen = () => {
   const fullscreen = document.fullscreenElement;
   if (fullscreen) {
     document.exitFullscreen();
@@ -125,15 +125,12 @@ const handleFullscreen = () => {
   }
 };
 
+const handleFullscreen = () => {
+  toggleFullScreen();
+};
+
 const handleVideoDoubleClick = () => {
-  const fullscreen = document.fullscreenElement;
-  if (fullscreen) {
-    document.exitFullscreen();
-    fullScreenBtn.innerText = "Enter Full Screen";
-  } else {
-    videoContainer.requestFullscreen();
-    fullScreenBtn.innerText = "Exit Full Screen";
-  }
+  toggleFullScreen();
 };
 
 const hideControls = () => videoControls.classList.remove("showing");
