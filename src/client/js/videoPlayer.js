@@ -16,18 +16,33 @@ video.volume = volumeValue;
 let videoPlayStatus = false;
 let setVideoPlayStatus = false;
 
-const handlePlayClick = (e) => {
-  if (video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
+//비디오 재생 정지 파트
+const toggleVideoPlay = () => {
+  video.paused ? video.play() : video.pause();
   playBtn.innerText = video.paused ? "Play" : "Pause";
 };
 
+const handlePlayClick = () => {
+  toggleVideoPlay();
+};
+
+const handleVideoClick = () => {
+  toggleVideoPlay();
+};
+
+const handleVideoWithSpaceBtn = (e) => {
+  if (e.keyCode === 32) {
+    e.preventDefault();
+    toggleVideoPlay();
+  }
+};
+
+// 이 라인 필요 없을 듯
 const handlePause = () => (playBtn.innerText = "Play");
 const handlePlay = () => (playBtn.innerText = "Pause");
+// 여기
 
+//비디오 소리 제어 파트
 const handleMuteClick = () => {
   if (video.muted) {
     video.muted = false;
@@ -69,6 +84,7 @@ const handleVolumeChangeCheck = (e) => {
   }
 };
 
+//비디오 시간 파트
 const formatTime = (seconds) => {
   if (seconds >= 3600) {
     return new Date(seconds * 1000).toISOString().substring(11, 19);
@@ -90,22 +106,6 @@ const handleTimeupdate = () => {
   }
 };
 
-const toggleVideoPlay = () => {
-  video.paused ? video.play() : video.pause();
-  playBtn.innerText = video.paused ? "Play" : "Pause";
-};
-
-const handleVideoClick = () => {
-  toggleVideoPlay();
-};
-
-const handleVideoWithSpaceBtn = (e) => {
-  if (e.keyCode === 32) {
-    e.preventDefault();
-    toggleVideoPlay();
-  }
-};
-
 const handleTimelineChange = (e) => {
   const {
     target: { value },
@@ -123,6 +123,7 @@ const handleTimelineSet = () => {
   setVideoPlayStatus = false;
 };
 
+//비디오 풀 스크린 파트
 const toggleFullScreen = () => {
   const fullscreen = document.fullscreenElement;
   if (fullscreen) {
@@ -142,6 +143,7 @@ const handleVideoDoubleClick = () => {
   toggleFullScreen();
 };
 
+//비디오 플레이어 토글 파트
 const hideControls = () => videoControls.classList.remove("showing");
 
 const handleMouseMove = () => {
@@ -161,10 +163,12 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
+//이벤트리스너
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 volumeRange.addEventListener("change", handleVolumeChangeCheck);
+document.addEventListener("keydown", handleMuteWithMBtn);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeupdate);
 video.addEventListener("click", handleVideoClick);
@@ -175,4 +179,3 @@ fullScreenBtn.addEventListener("click", handleFullscreen);
 document.addEventListener("keydown", handleVideoWithSpaceBtn);
 video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
-document.addEventListener("keydown", handleMuteWithMBtn);
