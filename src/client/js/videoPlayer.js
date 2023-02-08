@@ -110,6 +110,11 @@ const handleFullscreen = () => {
   }
 };
 
+const handleVideoClick = () => {
+  video.paused ? video.play() : video.pause();
+  playBtn.innerText = video.paused ? "Play" : "Pause";
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -119,3 +124,4 @@ video.addEventListener("timeupdate", handleTimeupdate);
 timeline.addEventListener("input", handleTimelineChange);
 timeline.addEventListener("change", handleTimelineSet);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+video.addEventListener("click", handleVideoClick);
