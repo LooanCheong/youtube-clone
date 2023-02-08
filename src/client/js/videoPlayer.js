@@ -54,6 +54,12 @@ const handleVolumeChange = (e) => {
   video.volume = value;
 };
 
+const handleMuteWithMBtn = (e) => {
+  if (e.keyCode === 77) {
+    handleMuteClick();
+  }
+};
+
 const handleVolumeChangeCheck = (e) => {
   const {
     target: { value },
@@ -169,3 +175,4 @@ fullScreenBtn.addEventListener("click", handleFullscreen);
 document.addEventListener("keydown", handleVideoWithSpaceBtn);
 video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
+document.addEventListener("keydown", handleMuteWithMBtn);
