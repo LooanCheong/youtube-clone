@@ -65,11 +65,11 @@ const handleVolumeChange = (e) => {
   } = e;
   if (video.muted) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
+    muteBtnIcon.classList = "fas fa-volume-mute";
   }
   if (value === "0") {
     video.muted = true;
-    muteBtn.innerText = "Unmute";
+    muteBtnIcon.classList = "fas fa-volume-up";
   }
   video.volume = value;
 };
@@ -107,7 +107,7 @@ const handleTimeupdate = () => {
   currentTime.innerText = formatTime(Math.floor(video.currentTime));
   timeline.value = Math.floor(video.currentTime);
   if (currentTime.innerText === totalTime.innerText) {
-    playBtn.innerText = "Play";
+    playBtnIcon.classList = "fas fa-play";
   }
 };
 
@@ -174,7 +174,7 @@ muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 volumeRange.addEventListener("change", handleVolumeChangeCheck);
 document.addEventListener("keydown", handleMuteWithMBtn);
-video.addEventListener("loadedmetadata", handleLoadedMetadata);
+video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeupdate);
 video.addEventListener("click", handleVideoClick);
 video.addEventListener("dblclick", handleVideoDoubleClick);
