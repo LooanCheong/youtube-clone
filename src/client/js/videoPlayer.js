@@ -79,6 +79,11 @@ const handleTimeupdate = () => {
   }
 };
 
+const handleVideoClick = () => {
+  video.paused ? video.play() : video.pause();
+  playBtn.innerText = video.paused ? "Play" : "Pause";
+};
+
 let videoPlayStatus = false;
 let setVideoPlayStatus = false;
 
@@ -110,18 +115,13 @@ const handleFullscreen = () => {
   }
 };
 
-const handleVideoClick = () => {
-  video.paused ? video.play() : video.pause();
-  playBtn.innerText = video.paused ? "Play" : "Pause";
-};
-
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 volumeRange.addEventListener("change", handleVolumeChangeCheck);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeupdate);
+video.addEventListener("click", handleVideoClick);
 timeline.addEventListener("input", handleTimelineChange);
 timeline.addEventListener("change", handleTimelineSet);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-video.addEventListener("click", handleVideoClick);
