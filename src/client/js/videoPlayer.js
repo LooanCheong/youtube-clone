@@ -40,11 +40,6 @@ const handleVideoWithSpaceBtn = (e) => {
   }
 };
 
-// 이 라인 필요 없을 듯
-const handlePause = () => (playBtn.innerText = "Play");
-const handlePlay = () => (playBtn.innerText = "Pause");
-// 여기
-
 //비디오 소리 제어 파트
 const handleMuteClick = () => {
   if (video.muted) {
