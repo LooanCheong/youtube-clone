@@ -123,6 +123,13 @@ const handleTimelineSet = () => {
   setVideoPlayStatus = false;
 };
 
+const handleEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
+
 //비디오 풀 스크린 파트
 const toggleFullScreen = () => {
   const fullscreen = document.fullscreenElement;
@@ -171,6 +178,7 @@ volumeRange.addEventListener("change", handleVolumeChangeCheck);
 document.addEventListener("keydown", handleMuteWithMBtn);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeupdate);
+video.addEventListener("ended", handleEnded);
 video.addEventListener("click", handleVideoClick);
 video.addEventListener("dblclick", handleVideoDoubleClick);
 timeline.addEventListener("input", handleTimelineChange);
