@@ -40,6 +40,20 @@ const handleVideoWithSpaceBtn = (e) => {
   }
 };
 
+const handleVideoWithLeftArrowBtn = (e) => {
+  if (e.keyCode === 37) {
+    e.preventDefault();
+    video.currentTime = video.currentTime - 5;
+  }
+};
+
+const handleVideoWithRightArrowBtn = (e) => {
+  if (e.keyCode === 39) {
+    e.preventDefault();
+    video.currentTime = video.currentTime + 5;
+  }
+};
+
 //비디오 소리 제어 파트
 const handleMuteClick = () => {
   if (video.muted) {
@@ -200,6 +214,8 @@ muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 volumeRange.addEventListener("change", handleVolumeChangeCheck);
 document.addEventListener("keydown", handleMuteWithMBtn);
+document.addEventListener("keydown", handleVideoWithLeftArrowBtn);
+document.addEventListener("keydown", handleVideoWithRightArrowBtn);
 document.addEventListener("keydown", handleVolumeWithTopArrowBtn);
 document.addEventListener("keydown", handleVolumeWithDownArrowBtn);
 video.addEventListener("loadeddata", handleLoadedMetadata);
