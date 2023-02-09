@@ -1,10 +1,12 @@
 const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("preview");
 
+//전역변수
 let stream;
 let recorder;
 let videoFile;
 
+//핸들러
 const handleDownload = () => {
   const a = document.createElement("a");
   a.href = videoFile;
