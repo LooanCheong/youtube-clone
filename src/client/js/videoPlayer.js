@@ -84,6 +84,32 @@ const handleVolumeChangeCheck = (e) => {
   }
 };
 
+const handleVolumeWithTopArrowBtn = (e) => {
+  if (e.keyCode === 38) {
+    e.preventDefault();
+    if (video.volume <= 0.95) {
+      video.volume = (video.volume + 0.05).toFixed(2);
+    } else {
+      video.volume = 1;
+    }
+    volumeRange.value = video.volume;
+    console.log(video.volume);
+  }
+};
+
+const handleVolumeWithDownArrowBtn = (e) => {
+  if (e.keyCode === 40) {
+    e.preventDefault();
+    if (video.volume >= 0.05) {
+      video.volume = (video.volume - 0.05).toFixed(2);
+    } else {
+      video.volume = 0;
+    }
+    volumeRange.value = video.volume;
+    console.log(video.volume);
+  }
+};
+
 //비디오 시간 파트
 const formatTime = (seconds) => {
   if (seconds >= 3600) {
@@ -176,6 +202,8 @@ muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 volumeRange.addEventListener("change", handleVolumeChangeCheck);
 document.addEventListener("keydown", handleMuteWithMBtn);
+document.addEventListener("keydown", handleVolumeWithTopArrowBtn);
+document.addEventListener("keydown", handleVolumeWithDownArrowBtn);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeupdate);
 video.addEventListener("ended", handleEnded);
