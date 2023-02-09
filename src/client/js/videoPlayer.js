@@ -93,7 +93,6 @@ const handleVolumeWithTopArrowBtn = (e) => {
       video.volume = 1;
     }
     volumeRange.value = video.volume;
-    console.log(video.volume);
   }
 };
 
@@ -106,7 +105,6 @@ const handleVolumeWithDownArrowBtn = (e) => {
       video.volume = 0;
     }
     volumeRange.value = video.volume;
-    console.log(video.volume);
   }
 };
 
