@@ -40,7 +40,7 @@ export const postEdit = async (req, res) => {
   } = req.session;
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exist({ _id: id });
+  const video = await Video.findById({ _id: id });
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
