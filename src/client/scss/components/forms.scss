@@ -9,7 +9,7 @@ form {
   }
 }
 
-input:not(input[type="range"]),
+input:not([type="range"]),
 input[type="submit"] {
   all: unset;
   padding: 15px 20px;
