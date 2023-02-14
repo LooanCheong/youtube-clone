@@ -18,6 +18,7 @@ const handleSubmit = async (e) => {
     },
     body: JSON.stringify({ text }),
   });
+  textarea.value = "";
 };
 
 if (form) {
