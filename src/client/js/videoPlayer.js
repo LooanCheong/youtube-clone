@@ -34,21 +34,21 @@ const handleVideoClick = () => {
 };
 
 const handleVideoWithSpaceBtn = (e) => {
-  if (e.keyCode === 32) {
+  if (e.target.id !== "textarea" && e.keyCode === 32) {
     e.preventDefault();
     toggleVideoPlay();
   }
 };
 
 const handleVideoWithLeftArrowBtn = (e) => {
-  if (e.keyCode === 37) {
+  if (e.target.id !== "textarea" && e.keyCode === 37) {
     e.preventDefault();
     video.currentTime = video.currentTime - 5;
   }
 };
 
 const handleVideoWithRightArrowBtn = (e) => {
-  if (e.keyCode === 39) {
+  if (e.target.id !== "textarea" && e.keyCode === 39) {
     e.preventDefault();
     video.currentTime = video.currentTime + 5;
   }
@@ -84,7 +84,7 @@ const handleVolumeChange = (e) => {
 };
 
 const handleMuteWithMBtn = (e) => {
-  if (e.keyCode === 77) {
+  if (e.target.id !== "textarea" && e.keyCode === 77) {
     handleMuteClick();
   }
 };
@@ -99,7 +99,7 @@ const handleVolumeChangeCheck = (e) => {
 };
 
 const handleVolumeWithTopArrowBtn = (e) => {
-  if (e.keyCode === 38) {
+  if (e.target.id !== "textarea" && e.keyCode === 38) {
     e.preventDefault();
     if (video.volume <= 0.95) {
       video.volume = (video.volume + 0.05).toFixed(2);
@@ -111,7 +111,7 @@ const handleVolumeWithTopArrowBtn = (e) => {
 };
 
 const handleVolumeWithDownArrowBtn = (e) => {
-  if (e.keyCode === 40) {
+  if (e.target.id !== "textarea" && e.keyCode === 40) {
     e.preventDefault();
     if (video.volume >= 0.05) {
       video.volume = (video.volume - 0.05).toFixed(2);
