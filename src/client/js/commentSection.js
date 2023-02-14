@@ -6,7 +6,7 @@ const handleSubmit = (e) => {
   const textarea = form.querySelector("textarea");
   const text = textarea.value;
   const videoId = videoContainer.dataset.id;
-  if (text === "" || text.trim === "") {
+  if (text === "" || text.trim() === "") {
     return;
   }
   fetch(`/api/videos/${videoId}/comment`, {
