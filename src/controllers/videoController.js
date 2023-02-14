@@ -148,5 +148,7 @@ export const createComment = async (req, res) => {
     owner: user._id,
     video: id,
   });
+  video.comments.push(comment._id);
+  video.save();
   return res.sendStatus(201);
 };
