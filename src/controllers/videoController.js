@@ -1,9 +1,6 @@
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 import User from "../models/User";
-import { async } from "regenerator-runtime";
-
-Video.find({}, (error, videos) => {});
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
