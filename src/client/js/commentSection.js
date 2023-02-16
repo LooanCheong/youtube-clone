@@ -44,6 +44,13 @@ const handleSubmit = async (e) => {
   }
 };
 
+const handleSubmitWithEnter = (e) => {
+  if (e.keyCode === 13 && !e.shiftKey) {
+    e.preventDefault();
+    handleSubmit(e);
+  }
+};
+
 const handleDelete = async (e) => {
   const commentBlock = e.target.parentNode;
   const commentId = commentBlock.dataset.id;
@@ -64,6 +71,7 @@ const handleDelete = async (e) => {
 //이벤트 리스너
 if (form) {
   form.addEventListener("submit", handleSubmit);
+  form.addEventListener("keydown", handleSubmitWithEnter);
 }
 
 if (deleteBtns) {
