@@ -4,7 +4,7 @@ let deleteBtns = document.querySelectorAll("#commentDeleteBtn");
 
 const addComment = (text, id) => {
   const updateCommentCount = () => {
-    const commentCountSpan = document.querySelector(".video__comments span");
+    const commentCountSpan = document.getElementById("video__comments-count");
     const currentCount = parseInt(commentCountSpan.innerText);
     commentCountSpan.innerText = currentCount + 1 + "개의 댓글";
   };
@@ -61,7 +61,7 @@ const handleDelete = async (e) => {
   const commentBlock = e.target.parentNode;
   const commentId = commentBlock.dataset.id;
   const updateCommentCount = () => {
-    const commentCountSpan = document.querySelector(".video__comments span");
+    const commentCountSpan = document.getElementById("video__comments-count");
     const currentCount = parseInt(commentCountSpan.innerText);
     commentCountSpan.innerText = currentCount - 1 + "개의 댓글";
   };
