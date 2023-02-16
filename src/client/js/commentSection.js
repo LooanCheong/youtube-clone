@@ -8,6 +8,7 @@ const addComment = (text, id) => {
     const currentCount = parseInt(commentCountSpan.innerText);
     commentCountSpan.innerText = currentCount + 1 + "개의 댓글";
   };
+
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
@@ -65,6 +66,7 @@ const handleDelete = async (e) => {
     const currentCount = parseInt(commentCountSpan.innerText);
     commentCountSpan.innerText = currentCount - 1 + "개의 댓글";
   };
+
   try {
     const response = await fetch(`/api/comments/${commentId}/delete`, {
       method: "DELETE",
