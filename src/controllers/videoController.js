@@ -152,3 +152,37 @@ export const createComment = async (req, res) => {
   video.save();
   return res.status(201).json({ newCommentId: comment._id });
 };
+
+export const deleteComment = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    params: { commentId },
+  } = req;
+
+  const comment = await Comment.findById(commentId).populate("owner");
+  const videoId = comment.video;
+  if (_id !== comment.owner._id.toString()) {
+    return res.sendStatus(403);
+    //에러메세지 추가
+  }
+  const video = await Video.findById(videoId);
+  if (!video) {
+    return res.sendStatus(404);
+    //에러메세지 추가
+  }
+
+  video.comments = video.comments.filter(
+    (c) => c.toString() !== commentId.toString()
+  );
+  await video.save();
+
+  const deletedComment = await Comment.findByIdAndDelete(commentId);
+  if (!deletedComment) {
+    return res.sendStatus(404);
+    //에러메세지 추가
+  } else {
+    return res.sendStatus(200);
+  }
+};
