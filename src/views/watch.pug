@@ -34,6 +34,7 @@ block content
                 textarea#textarea(cols="30", rows="10", placeholder="Write a Comment")
                 button Add Comment
     div.video__comments
+        span=video.comments.length + '개의 댓글'
         ul
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)

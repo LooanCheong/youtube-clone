@@ -3,6 +3,11 @@ const form = document.getElementById("commentForm");
 let deleteBtns = document.querySelectorAll("#commentDeleteBtn");
 
 const addComment = (text, id) => {
+  const updateCommentCount = () => {
+    const commentCountSpan = document.querySelector(".video__comments span");
+    const currentCount = parseInt(commentCountSpan.innerText);
+    commentCountSpan.innerText = currentCount + 1 + "개의 댓글";
+  };
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
@@ -20,6 +25,7 @@ const addComment = (text, id) => {
   newComment.appendChild(span);
   newComment.appendChild(span2);
   videoComments.prepend(newComment);
+  updateCommentCount();
 };
 
 const handleSubmit = async (e) => {
@@ -54,6 +60,11 @@ const handleSubmitWithEnter = (e) => {
 const handleDelete = async (e) => {
   const commentBlock = e.target.parentNode;
   const commentId = commentBlock.dataset.id;
+  const updateCommentCount = () => {
+    const commentCountSpan = document.querySelector(".video__comments span");
+    const currentCount = parseInt(commentCountSpan.innerText);
+    commentCountSpan.innerText = currentCount - 1 + "개의 댓글";
+  };
   try {
     const response = await fetch(`/api/comments/${commentId}/delete`, {
       method: "DELETE",
@@ -62,6 +73,7 @@ const handleDelete = async (e) => {
       throw new Error("Delete request failed");
     }
     commentBlock.remove();
+    updateCommentCount();
   } catch (error) {
     //댓글 삭제 실패 알림 추가
     return;
