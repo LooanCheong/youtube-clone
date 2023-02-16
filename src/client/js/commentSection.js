@@ -43,8 +43,21 @@ const handleSubmit = async (e) => {
   }
 };
 
-const handleDelete = () => {
-  console.log("T");
+const handleDelete = async (e) => {
+  const commentBlock = e.target.parentNode;
+  const commentId = commentBlock.dataset.id;
+  try {
+    const response = await fetch(`/api/comments/${commentId}/delete`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Delete request failed");
+    }
+    commentBlock.remove();
+  } catch (error) {
+    //댓글 삭제 실패 알림 추가
+    return;
+  }
 };
 
 //이벤트 리스너
