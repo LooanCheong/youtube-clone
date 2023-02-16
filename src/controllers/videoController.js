@@ -173,9 +173,7 @@ export const deleteComment = async (req, res) => {
     //에러메세지 추가
   }
 
-  video.comments = video.comments.filter(
-    (c) => c.toString() !== commentId.toString()
-  );
+  video.comments.splice(video.comments.indexOf(commentId), 1);
   await video.save();
 
   const deletedComment = await Comment.findByIdAndDelete(commentId);
