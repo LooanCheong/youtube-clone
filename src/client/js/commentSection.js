@@ -14,6 +14,7 @@ const addComment = (text, id) => {
   const span2 = document.createElement("span");
   span2.innerText = "❌";
   span2.id = "commentDeleteBtn";
+  span2.addEventListener("click", handleDelete);
   newComment.appendChild(icon);
   newComment.appendChild(span);
   newComment.appendChild(span2);
