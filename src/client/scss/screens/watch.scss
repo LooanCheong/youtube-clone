@@ -1,21 +1,39 @@
 .video__data {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   .video__title {
     font-size: 26px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
   }
   .video__createdAt {
-    font-size: 12px;
+    font-size: 14px;
   }
   .video__owner {
-    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    margin-bottom: 10px;
     font-size: 14px;
     a {
-      color: cornflowerblue;
-      text-decoration: underline;
+      margin-right: 5px;
     }
+    .video__owner-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .video__owner-name {
+      text-align: center;
+    }
+  }
+}
+.video__controller {
+  a {
+    display: flex;
+    width: 110px;
+    height: 20px;
+    margin: 10px 0;
   }
 }
 

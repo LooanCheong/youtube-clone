@@ -21,13 +21,15 @@ block content
                     i.fas.fa-expand
     div.video__data
         p.video__title=video.title
-        small.video__owner Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
-        small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+        small.video__owner
+            a(href=`/users/${video.owner._id}`)
+                img.video__owner-avatar(src="/" + video.owner.avatarUrl)
+            a.video__owner-name(href=`/users/${video.owner._id}`)=video.owner.name
+        small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'}) + " 업로드"
         if String(video.owner._id) === String(loggedInUser._id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+            div.video__controller
+                a.edit-video(href=`${video.id}/edit`) Edit Video &rarr;
+                a.delete-video(href=`${video.id}/delete`) Delete Video &rarr;
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
