@@ -32,6 +32,11 @@
     background-color: white;
     color: black;
     margin-bottom: 10px;
+    .video__comment-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
   }
   .video__comment-delete {
     float: right;
