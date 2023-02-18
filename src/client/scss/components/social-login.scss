@@ -6,4 +6,20 @@
     background-color: transparent;
     color: azure;
   }
+  .social__btn--kakao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 420px;
+    height: 40px;
+    background-color: #fee500;
+    border-radius: 12px;
+    color: #000000;
+    i {
+      float: left;
+      color: #000000;
+      opacity: 0.85;
+    }
+  }
 }
