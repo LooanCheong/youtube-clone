@@ -135,6 +135,67 @@ export const finishGithubLogin = async (req, res) => {
   }
 };
 
+export const startKakaoLogin = (req, res) => {
+  const REST_API_KEY = process.env.KKT_CLIENT;
+  const REDIRECT_URI = "http://localhost:4000/users/kakao/finish";
+  const finalUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  return res.redirect(finalUrl);
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  const options = {
+    client_id: process.env.KKT_CLIENT,
+    client_secret: process.env.KKT_SECRET,
+    grant_type: "authorization_code",
+    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(options).toString();
+  const finalUrl = `https://kauth.kakao.com/oauth/token?${params}`;
+
+  const tokenReq = await fetch(finalUrl, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+    },
+  });
+
+  const json = await tokenReq.json();
+  if ("access_token" in json) {
+    const apiUrl = "https://kapi.kakao.com/v2/user/me";
+    const { access_token } = json;
+    const userReq = await (
+      await fetch(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-type": "application/x-www-form-urlencoded",
+        },
+      })
+    ).json();
+    const userData = userReq.kakao_account;
+    const email = userReq.kakao_account.email;
+    const randomString = Math.random().toString(36).substr(2, 10);
+    const username = `kakao_${randomString}`;
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({
+        name: userData.profile.nickname,
+        username: username,
+        email: email,
+        password: "",
+        socialOnly: true,
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+};
+
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
