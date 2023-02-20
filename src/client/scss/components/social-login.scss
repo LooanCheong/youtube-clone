@@ -7,6 +7,7 @@
     color: azure;
   }
   .social__btn--kakao {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,9 +18,27 @@
     border-radius: 12px;
     color: #000000;
     i {
-      float: left;
+      position: absolute;
+      left: 134px;
       color: #000000;
       opacity: 0.85;
     }
+  }
+  .social__btn--naver {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 420px;
+    height: 40px;
+    background-color: #03c75a;
+    border-radius: 12px;
+  }
+  img {
+    position: absolute;
+    left: 121px;
+    width: 40px;
+    height: 40px;
   }
 }
