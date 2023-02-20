@@ -196,6 +196,73 @@ export const finishKakaoLogin = async (req, res) => {
   }
 };
 
+export const startNaverLogin = (req, res) => {
+  const baseUrl = "https://nid.naver.com/oauth2.0/authorize";
+  const config = {
+    response_type: "code",
+    client_id: process.env.NAVER_CLIENT,
+    redirect_uri: "http://localhost:4000/users/naver/finish",
+    state: "test",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+
+  return res.redirect(finalUrl);
+};
+
+export const finishNaverLogin = async (req, res) => {
+  const baseUrl = "https://nid.naver.com/oauth2.0/token";
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.NAVER_CLIENT,
+    client_secret: process.env.NAVER_SECRET,
+    code: req.query.code,
+    state: "test",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+
+  const tokenReq = await fetch(finalUrl, {
+    method: "POST",
+  });
+
+  const json = await tokenReq.json();
+
+  if ("access_token" in json) {
+    const apiUrl = "https://openapi.naver.com/v1/nid/me";
+    const { access_token } = json;
+    const userReq = await (
+      await fetch(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+    console.log(userReq.response.email);
+    const name = userReq.response.name;
+    const email = userReq.response.email;
+    const randomString = Math.random().toString(36).substr(2, 10);
+    const username = `naver_${randomString}`;
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({
+        name,
+        username,
+        email,
+        password: "",
+        socialOnly: true,
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+};
+
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
