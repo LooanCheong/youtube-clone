@@ -154,7 +154,7 @@ export const createComment = async (req, res) => {
   });
   const newComment = await Comment.findById(comment._id).populate("owner");
   video.comments.push(comment._id);
-  video.save();
+  await video.save();
   return res.status(201).json({ newComment });
 };
 
