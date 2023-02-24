@@ -4,5 +4,6 @@ mixin video(video)
         div.video-mixin__data
             span.video-mixin__title=video.title
             div.video-mixin__meta
+                img.video__owner-avatar(src="/" + video.owner.avatarUrl)
                 span #{video.owner.username} • 
                 span #{video.meta.views} 회

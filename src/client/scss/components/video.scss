@@ -16,6 +16,11 @@
     .video-mixin__meta {
       margin-top: 5px;
       font-size: 12px;
+      .video__owner-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
     }
   }
 }
