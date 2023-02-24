@@ -7,6 +7,8 @@ mixin video(video)
                 img.video__owner-avatar(src="/" + video.owner.avatarUrl)
             div.video-mixin__info
                 div.video-mixin__data
-                    span.video-mixin__title=video.title
-                span #{video.owner.username}
-                span #{video.meta.views} 회 • #{new Date(video.createdAt).toLocaleString("ko-KR", {dateStyle: "short", timeStyle: "short"})}
+                    a.video-mixin__title(href=`/videos/${video.id}`)
+                        span=video.title
+                    a.video-mixin__owner(href=`/users/${video.owner._id}`)
+                        span #{video.owner.username}
+                        span #{video.meta.views} 회 • #{new Date(video.createdAt).toLocaleString("ko-KR", {dateStyle: "short", timeStyle: "short"})}
