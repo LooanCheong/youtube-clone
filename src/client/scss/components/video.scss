@@ -6,36 +6,36 @@
     width: 100%;
     background-color: ivory;
   }
-}
 
-.video-mixin__meta {
-  display: flex;
-  margin-top: 12px;
-  font-size: 12px;
-  .video__owner-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 13px;
-  }
-  .video-mixin__info {
+  .video-mixin__meta {
     display: flex;
-    flex-direction: column;
-    text-align: left;
-    .video-mixin__data {
-      padding: 0px;
-      margin-bottom: 8px;
-      .video-mixin__title {
-        font-size: 20px;
-      }
-      .video-mixin__owner {
-        display: flex;
-        flex-direction: column;
-        margin-top: 10px;
-        span {
-          font-size: 14px;
-          margin-bottom: 4px;
-          opacity: 0.8;
+    margin-top: 12px;
+    font-size: 12px;
+    .video__owner-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 13px;
+    }
+    .video-mixin__info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      .video-mixin__data {
+        padding: 0px;
+        margin-bottom: 8px;
+        .video-mixin__title {
+          font-size: 20px;
+        }
+        .video-mixin__owner {
+          display: flex;
+          flex-direction: column;
+          margin-top: 10px;
+          span {
+            font-size: 14px;
+            margin-bottom: 4px;
+            opacity: 0.8;
+          }
         }
       }
     }
