@@ -6,16 +6,10 @@
     width: 100%;
     background-color: ivory;
   }
-  .video-mixin__data {
-    padding: 0px 15px;
-    .video-mixin__title {
-      font-size: 18px;
-      display: block;
-      margin-top: 10px;
-    }
-  }
 }
+
 .video-mixin__meta {
+  display: flex;
   margin-top: 12px;
   font-size: 12px;
   .video__owner-avatar {
@@ -23,5 +17,23 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 13px;
+  }
+  .video-mixin__info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    .video-mixin__data {
+      padding: 0px;
+      margin-bottom: 8px;
+      .video-mixin__title {
+        font-size: 18px;
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 0px;
+      }
+    }
+    span {
+      margin-bottom: 4px;
+    }
   }
 }

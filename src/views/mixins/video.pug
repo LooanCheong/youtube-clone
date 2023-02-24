@@ -2,10 +2,11 @@ mixin video(video)
     div.video-mixin
         a(href=`/videos/${video.id}`)
             div.video-mixin__thumb(style=`background-image:url(${video.thumbUrl});background-size:cover;background-position:center;`)
-            div.video-mixin__data
-                span.video-mixin__title=video.title
         div.video-mixin__meta
             a(href=`/users/${video.owner._id}`)
                 img.video__owner-avatar(src="/" + video.owner.avatarUrl)
-                span #{video.owner.username} • 
-            span #{video.meta.views} 회
+            div.video-mixin__info
+                div.video-mixin__data
+                    span.video-mixin__title=video.title
+                span #{video.owner.username}
+                span #{video.meta.views} 회 • #{new Date(video.createdAt).toLocaleString("ko-KR", {dateStyle: "short", timeStyle: "short"})}
