@@ -189,3 +189,38 @@ export const deleteComment = async (req, res) => {
     return res.sendStatus(200);
   }
 };
+
+export const commentLike = async (req, res) => {
+  const {
+    params: { commentId },
+    session: {
+      user: { _id },
+    },
+  } = req;
+
+  const comment = await Comment.findById(commentId);
+
+  if (!comment) {
+    return res.sendStatus(404);
+  }
+
+  const user = await User.findById(_id);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  const nowLike = await Comment.findOne({ like: _id });
+
+  let likeCount;
+  if (nowLike) {
+    comment.like.remove(_id);
+    await comment.save();
+    likeCount = comment.like.length;
+    return res.status(201).json({ likeCount });
+  }
+  comment.like.push(_id);
+  await comment.save();
+  likeCount = comment.like.length;
+  return res.status(201).json({ likeCount });
+};

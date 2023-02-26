@@ -1,6 +1,7 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 let deleteBtns = document.querySelectorAll("#commentDeleteBtn");
+let likeBtns = document.querySelectorAll("#video__comment-like");
 
 const addComment = (text, id, owner) => {
   const updateCommentCount = () => {
@@ -83,6 +84,31 @@ const handleDelete = async (e) => {
   }
 };
 
+const likeCounting = (likeCount) => {
+  const commentCounts = document.querySelectorAll("#video__comment-like-count");
+};
+
+const handleCommentLike = async (e) => {
+  let commentBlock = e.target.parentNode;
+  if (commentBlock.nodeName != "LI") {
+    commentBlock = commentBlock.parentNode;
+  }
+  const commentId = commentBlock.dataset.id;
+
+  const response = await fetch(`/api/comments/${commentId}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.status === 201) {
+    const { likeCount } = await response.json();
+
+    console.log(likeCount);
+  }
+};
+
 //이벤트 리스너
 if (form) {
   form.addEventListener("submit", handleSubmit);
@@ -93,4 +119,10 @@ if (deleteBtns) {
   deleteBtns.forEach((deleteBtn) =>
     deleteBtn.addEventListener("click", handleDelete)
   );
+}
+
+if (likeBtns) {
+  likeBtns.forEach((likeBtn) => {
+    likeBtn.addEventListener("click", handleCommentLike);
+  });
 }
