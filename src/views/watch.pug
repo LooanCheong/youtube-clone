@@ -42,9 +42,10 @@ block content
                 li.video__comment(data-id=comment.id)
                     img.video__comment-avatar(src="/" + comment.owner.avatarUrl)
                     span  #{comment.text}
-                    button#video__comment-like
-                        i.fas.fa-thumbs-up
-                        span#video__comment-like-count  좋아요 #{comment.like.length}개
+                    if loggedIn
+                        button#video__comment-like
+                            i.fas.fa-thumbs-up
+                            span#video__comment-like-count  좋아요 #{comment.like.length}개
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span#commentDeleteBtn.video__comment-delete ❌
 
