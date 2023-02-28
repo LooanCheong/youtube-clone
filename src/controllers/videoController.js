@@ -10,6 +10,9 @@ export const home = async (req, res) => {
 };
 export const watch = async (req, res) => {
   const { id } = req.params;
+  const {
+    user: { _id },
+  } = req.session;
   const video = await Video.findById(id)
     .populate({ path: "owner" })
     .populate({
@@ -19,7 +22,8 @@ export const watch = async (req, res) => {
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+
+  return res.render("watch", { pageTitle: video.title, video, _id });
 };
 
 export const getEdit = async (req, res) => {
@@ -260,4 +264,39 @@ export const videoLike = async (req, res) => {
   await user.save();
   likeCount = video.like.length;
   return res.status(201).json({ likeCount });
+};
+
+export const followUser = async (req, res) => {
+  const {
+    params: { id },
+    session: {
+      user: { _id },
+    },
+  } = req;
+  const owner = await User.findById(id);
+
+  if (!owner) {
+    return res.sendStatus(404);
+  }
+
+  const user = await User.findById(_id);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+  let text;
+  if (owner.follower.includes(_id)) {
+    owner.follower.remove(_id);
+    await owner.save();
+    user.following.remove(id);
+    await user.save();
+    text = "구독";
+    return res.status(201).json({ text });
+  }
+  owner.follower.push(_id);
+  await owner.save();
+  user.following.push(id);
+  await user.save();
+  text = "구독중";
+  return res.status(201).json({ text });
 };

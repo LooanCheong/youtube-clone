@@ -19,7 +19,7 @@ block content
             div
                 span#fullScreen
                     i.fas.fa-expand
-    div.video__data
+    div.video__data#video__data(data-id=video.owner._id)
         p.video__title=video.title
         small.video__owner
             a(href=`/users/${video.owner._id}`)
@@ -34,6 +34,12 @@ block content
         button#video__like
             i.fas.fa-thumbs-up
             span#video__like-count  #{video.like.length}
+        if String(video.owner._id) !== String(loggedInUser._id)
+            button#video__user__follow
+                if video.owner.follower.includes(_id)
+                    | 구독중
+                else
+                    | 구독
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm

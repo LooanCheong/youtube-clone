@@ -4,6 +4,8 @@ let deleteBtns = document.querySelectorAll("#commentDeleteBtn");
 let commentLikeBtns = document.querySelectorAll("#video__comment-like");
 const videoLikeBtn = document.getElementById("video__like");
 const videoLikeCounter = document.getElementById("video__like-count");
+const followBtn = document.getElementById("video__user__follow");
+const videoOwner = document.getElementById("video__data");
 
 //댓글 파트
 const addComment = (text, id, owner) => {
@@ -149,9 +151,24 @@ const handleVideoLike = async () => {
   });
   if (response.status === 201) {
     const { likeCount } = await response.json();
-
     videoLikeCounter.innerText = ` ${likeCount}`;
   }
 };
 
+const handleUserFollow = async () => {
+  const videoOwnerId = videoOwner.dataset.id;
+  const response = await fetch(`/api/users/${videoOwnerId}/follow`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status === 201) {
+    const { text } = await response.json();
+    followBtn.innerText = text;
+  }
+};
+
+//이벤트 핸들러
 videoLikeBtn.addEventListener("click", handleVideoLike);
+followBtn.addEventListener("click", handleUserFollow);
