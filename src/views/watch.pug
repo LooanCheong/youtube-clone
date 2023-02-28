@@ -30,6 +30,10 @@ block content
             div.video__controller
                 a.edit-video(href=`${video.id}/edit`) 비디오 수정 &rarr;
                 a.delete-video(href=`${video.id}/delete`) 비디오 삭제 &rarr;
+    div.video__user-control
+        button#video__like
+            i.fas.fa-thumbs-up
+            span#video__like-count  #{video.like.length}
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
@@ -45,7 +49,7 @@ block content
                     if loggedIn
                         button#video__comment-like
                             i.fas.fa-thumbs-up
-                            span#video__comment-like-count  좋아요 #{comment.like.length}개
+                            span#video__comment-like-count  #{comment.like.length}
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span#commentDeleteBtn.video__comment-delete ❌
 

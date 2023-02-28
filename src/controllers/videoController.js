@@ -224,3 +224,40 @@ export const commentLike = async (req, res) => {
   likeCount = comment.like.length;
   return res.status(201).json({ likeCount });
 };
+
+export const videoLike = async (req, res) => {
+  const {
+    params: { id },
+    session: {
+      user: { _id },
+    },
+  } = req;
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  const user = await User.findById(_id);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  const nowLike = await Video.findOne({ like: _id });
+  let likeCount;
+  if (nowLike) {
+    video.like.remove(_id);
+    await video.save();
+    user.likeVideos.remove(id);
+    await user.save();
+    likeCount = video.like.length;
+    return res.status(201).json({ likeCount });
+  }
+  video.like.push(_id);
+  await video.save();
+  user.likeVideos.push(id);
+  await user.save();
+  likeCount = video.like.length;
+  return res.status(201).json({ likeCount });
+};

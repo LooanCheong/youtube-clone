@@ -1,8 +1,11 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 let deleteBtns = document.querySelectorAll("#commentDeleteBtn");
-let likeBtns = document.querySelectorAll("#video__comment-like");
+let commentLikeBtns = document.querySelectorAll("#video__comment-like");
+const videoLikeBtn = document.getElementById("video__like");
+const videoLikeCounter = document.getElementById("video__like-count");
 
+//댓글 파트
 const addComment = (text, id, owner) => {
   const updateCommentCount = () => {
     const commentCountSpan = document.getElementById("video__comments-count");
@@ -24,9 +27,19 @@ const addComment = (text, id, owner) => {
   span2.id = "commentDeleteBtn";
   span2.className = "video__comment-delete";
   span2.addEventListener("click", handleDelete);
+  const btn = document.createElement("button");
+  btn.id = "video__comment-like";
+  const i = document.createElement("i");
+  i.className = "fas fa-thumbs-up";
+  const btnSpan = document.createElement("span");
+  btnSpan.id = "video__comment-like-count";
+  btnSpan.innerText = " 0";
+  btn.appendChild(i);
+  btn.appendChild(btnSpan);
   newComment.appendChild(img);
   newComment.appendChild(span);
   newComment.appendChild(span2);
+  newComment.appendChild(btn);
   videoComments.prepend(newComment);
   updateCommentCount();
 };
@@ -104,8 +117,6 @@ const handleCommentLike = async (e) => {
 
   if (response.status === 201) {
     const { likeCount } = await response.json();
-
-    console.log(likeCount);
   }
 };
 
@@ -121,8 +132,26 @@ if (deleteBtns) {
   );
 }
 
-if (likeBtns) {
-  likeBtns.forEach((likeBtn) => {
+if (commentLikeBtns) {
+  commentLikeBtns.forEach((likeBtn) => {
     likeBtn.addEventListener("click", handleCommentLike);
   });
 }
+
+//유저 컨트롤러 파트
+const handleVideoLike = async () => {
+  const videoId = videoContainer.dataset.id;
+  const response = await fetch(`/api/videos/${videoId}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status === 201) {
+    const { likeCount } = await response.json();
+
+    videoLikeCounter.innerText = ` ${likeCount}`;
+  }
+};
+
+videoLikeBtn.addEventListener("click", handleVideoLike);

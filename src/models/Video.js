@@ -13,6 +13,7 @@ const videoSchema = new mongoose.Schema({
   },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  like: [{ type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }],
 });
 
 videoSchema.static("formatHashtags", function (hashtags) {
