@@ -42,6 +42,7 @@ const addComment = (text, id, owner) => {
   newComment.appendChild(span);
   newComment.appendChild(span2);
   newComment.appendChild(btn);
+  newComment.addEventListener("click", handleCommentLike);
   videoComments.prepend(newComment);
   updateCommentCount();
 };
