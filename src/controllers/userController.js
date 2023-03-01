@@ -374,16 +374,60 @@ export const see = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).populate({
     path: "videos",
-    populate: {
-      path: "owner",
-      model: "User",
-    },
+    populate: "owner",
   });
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
   }
   return res.render("users/profile", {
-    pageTitle: user.name,
+    pageTitle: user.username,
     user,
+  });
+};
+
+export const myVideo = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: "owner",
+  });
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
+  }
+  return res.render("users/myVideo", {
+    pageTitle: user.username,
+    user,
+  });
+};
+
+export const likedVideo = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
+  }
+  const videos = await Video.find({ like: id }).populate("owner");
+  return res.render("users/likedVideo", {
+    pageTitle: user.username,
+    user,
+    videos,
+  });
+};
+
+export const followingVideo = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
+  }
+  const following = user.following;
+  const videos = await Video.find({ owner: following })
+    .sort({ createdAt: "desc" })
+    .populate("owner");
+
+  return res.render("users/followingVideo", {
+    pageTitle: user.username,
+    user,
+    videos,
   });
 };

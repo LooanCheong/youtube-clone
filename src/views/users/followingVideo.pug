@@ -1,0 +1,10 @@
+extends ../base
+include ../mixins/video
+
+block content
+    div 구독중인 동영상
+    div.video-grid
+        each video in videos
+            +video(video)
+        else
+            span.empty__message No videos found

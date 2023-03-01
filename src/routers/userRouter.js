@@ -12,6 +12,9 @@ import {
   postChangePassword,
   startNaverLogin,
   finishNaverLogin,
+  myVideo,
+  likedVideo,
+  followingVideo,
 } from "../controllers/userController";
 import {
   protectorMiddleware,
@@ -39,5 +42,8 @@ userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
 userRouter.get("/naver/start", publicOnlyMiddleware, startNaverLogin);
 userRouter.get("/naver/finish", publicOnlyMiddleware, finishNaverLogin);
 userRouter.get("/:id", see);
+userRouter.get("/:id/myVideo", myVideo);
+userRouter.get("/:id/likedVideo", likedVideo);
+userRouter.get("/:id/followingVideo", followingVideo);
 
 export default userRouter;
