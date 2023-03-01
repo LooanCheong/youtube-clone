@@ -99,10 +99,6 @@ const handleDelete = async (e) => {
   }
 };
 
-const likeCounting = (likeCount) => {
-  const commentCounts = document.querySelectorAll("#video__comment-like-count");
-};
-
 const handleCommentLike = async (e) => {
   let commentBlock = e.target.parentNode;
   if (commentBlock.nodeName != "LI") {
@@ -119,6 +115,10 @@ const handleCommentLike = async (e) => {
 
   if (response.status === 201) {
     const { likeCount } = await response.json();
+    const commentLikeCount = commentBlock.querySelector(
+      "#video__comment-like-count"
+    );
+    commentLikeCount.textContent = ` ${likeCount}`;
   }
 };
 
