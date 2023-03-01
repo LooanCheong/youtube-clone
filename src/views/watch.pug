@@ -36,7 +36,7 @@ block content
             span#video__like-count  #{video.like.length}
         if String(video.owner._id) !== String(loggedInUser._id)
             button#video__user__follow
-                if video.owner.follower.includes(_id)
+                if video.owner.follower.includes(loggedInUser._id)
                     | 구독중
                 else
                     | 구독

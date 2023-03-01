@@ -10,9 +10,7 @@ export const home = async (req, res) => {
 };
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const {
-    user: { _id },
-  } = req.session;
+
   const video = await Video.findById(id)
     .populate({ path: "owner" })
     .populate({
@@ -23,7 +21,7 @@ export const watch = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
 
-  return res.render("watch", { pageTitle: video.title, video, _id });
+  return res.render("watch", { pageTitle: video.title, video });
 };
 
 export const getEdit = async (req, res) => {
@@ -214,10 +212,8 @@ export const commentLike = async (req, res) => {
     return res.sendStatus(404);
   }
 
-  const nowLike = await Comment.findOne({ like: _id });
-
   let likeCount;
-  if (nowLike) {
+  if (comment.like.includes(_id)) {
     comment.like.remove(_id);
     await comment.save();
     likeCount = comment.like.length;
@@ -248,9 +244,8 @@ export const videoLike = async (req, res) => {
     return res.sendStatus(404);
   }
 
-  const nowLike = await Video.findOne({ like: _id });
   let likeCount;
-  if (nowLike) {
+  if (video.like.includes(_id)) {
     video.like.remove(_id);
     await video.save();
     user.likeVideos.remove(id);
