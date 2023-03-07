@@ -11,8 +11,11 @@ const videoOwner = document.getElementById("video__data");
 const addComment = (text, id, owner) => {
   const updateCommentCount = () => {
     const commentCountSpan = document.getElementById("video__comments-count");
-    const currentCount = parseInt(commentCountSpan.innerText);
-    commentCountSpan.innerText = currentCount + 1 + "개의 댓글";
+    const currentCount = parseInt(
+      commentCountSpan.innerText.match(/\d+/)[0],
+      10
+    );
+    commentCountSpan.innerText = `댓글 ${currentCount + 1}개`;
   };
 
   const videoComments = document.querySelector(".video__comments ul");
@@ -81,8 +84,11 @@ const handleDelete = async (e) => {
   const commentId = commentBlock.dataset.id;
   const updateCommentCount = () => {
     const commentCountSpan = document.getElementById("video__comments-count");
-    const currentCount = parseInt(commentCountSpan.innerText);
-    commentCountSpan.innerText = currentCount - 1 + "개의 댓글";
+    const currentCount = parseInt(
+      commentCountSpan.innerText.match(/\d+/)[0],
+      10
+    );
+    commentCountSpan.innerText = `댓글 ${currentCount - 1}개`;
   };
 
   try {
