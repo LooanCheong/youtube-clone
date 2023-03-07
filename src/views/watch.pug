@@ -46,9 +46,6 @@ block content
                 textarea#textarea(cols="30", rows="10", placeholder="댓글 추가...")
                 button Add Comment
     div.video__comments
-        div 정렬 기준
-            button#sort_new 최신순
-            button#sort_recommend 추천순
         span#video__comments-count 댓글 #{video.comments.length}개
         ul
             each comment in video.comments.reverse()
