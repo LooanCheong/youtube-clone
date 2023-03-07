@@ -46,7 +46,7 @@ block content
                 textarea#textarea(cols="30", rows="10", placeholder="댓글 추가...")
                 button Add Comment
     div.video__comments
-        div
+        div 정렬 기준
             button#sort_new 최신순
             button#sort_recommend 추천순
         span#video__comments-count 댓글 #{video.comments.length}개
@@ -61,7 +61,7 @@ block content
                             span#video__comment-like-count  #{comment.like.length}
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span#commentDeleteBtn.video__comment-delete ❌
-
+                        span #{new Date(comment.createdAt).toLocaleString("ko-KR", {dateStyle: "short", timeStyle: "short"})}
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn
