@@ -2,7 +2,7 @@ extends ../base
 
 block content
     div.profile__data
-        img(src="/" + user.avatarUrl).avatar
+        img(src=user.avatarUrl).avatar
         h3=user.username
     a(href=`/users/${user._id}/myVideo`) 내 동영상
     br

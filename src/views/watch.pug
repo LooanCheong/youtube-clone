@@ -2,7 +2,7 @@ extends base
 
 block content
     div#videoContainer(data-id=video._id)
-        video(src="/" + video.fileUrl)
+        video(src=video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
@@ -23,7 +23,7 @@ block content
         p.video__title=video.title
         small.video__owner
             a(href=`/users/${video.owner._id}`)
-                img.video__owner-avatar(src="/" + video.owner.avatarUrl)
+                img.video__owner-avatar(src=video.owner.avatarUrl)
             a.video__owner-name(href=`/users/${video.owner._id}`)=video.owner.username
         small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'}) + " 업로드"
         if String(video.owner._id) === String(loggedInUser._id)
