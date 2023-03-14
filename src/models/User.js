@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   avatarUrl: {
     type: String,
     required: true,
-    default: "uploads/avatars/a94f1b19544a7df1f3579cc99ffd3a39",
+    default: "https://plam.s3.ap-northeast-2.amazonaws.com/defalut-avatar",
   },
   socialOnly: { type: Boolean, default: false },
   username: { type: String, required: true, unique: true },
