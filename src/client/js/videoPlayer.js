@@ -124,10 +124,12 @@ const handleVolumeWithDownArrowBtn = (e) => {
 
 //비디오 시간 파트
 const formatTime = (seconds) => {
-  if (seconds >= 3600) {
-    return new Date(seconds * 1000).toISOString().substring(11, 19);
-  } else {
-    return new Date(seconds * 1000).toISOString().substring(14, 19);
+  if (!isNaN(video.duration)) {
+    if (seconds >= 3600) {
+      return new Date(seconds * 1000).toISOString().substring(11, 19);
+    } else {
+      return new Date(seconds * 1000).toISOString().substring(14, 19);
+    }
   }
 };
 
@@ -218,7 +220,8 @@ document.addEventListener("keydown", handleVideoWithLeftArrowBtn);
 document.addEventListener("keydown", handleVideoWithRightArrowBtn);
 document.addEventListener("keydown", handleVolumeWithTopArrowBtn);
 document.addEventListener("keydown", handleVolumeWithDownArrowBtn);
-video.addEventListener("loadeddata", handleLoadedMetadata);
+video.addEventListener("canplay", handleLoadedMetadata);
+handleLoadedMetadata();
 video.addEventListener("timeupdate", handleTimeupdate);
 video.addEventListener("ended", handleEnded);
 video.addEventListener("click", handleVideoClick);
