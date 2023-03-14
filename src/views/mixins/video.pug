@@ -1,4 +1,27 @@
 mixin video(video)
+    -function getTimeStamp(time) {
+        -const now = new Date().getTime();
+        -const elapsedTime = (now - time) / 1000;
+        
+        -if (elapsedTime < 60) {
+        -return "방금 전";
+        -} else if (elapsedTime < 3600) {
+        -const minutes = Math.floor(elapsedTime / 60);
+        -return `${String(minutes)}분 전`;
+        -} else if (elapsedTime < 86400) {
+        -const hours = Math.floor(elapsedTime / 3600);
+        -return `${String(hours)}시간 전`;
+        -} else if(elapsedTime < 2592000) {
+        -const days = Math.floor(elapsedTime / 86400);
+        -return `${String(days)}일 전`;
+        -} else if (elapsedTime < 31104000){
+        -const months = Math.floor(elapsedTime / 2592000)
+        -return `${String(months)}개월 전`;
+        -} else {
+        -   const years = Math.floor(elapsedTime / 31104000)
+        -return `${String(years)}년 전`;
+        -}
+    -}
     div.video-mixin
         a(href=`/videos/${video.id}`)
             div.video-mixin__thumb(style=`background-image:url(${video.thumbUrl});background-size:cover;background-position:center;`)
@@ -11,4 +34,4 @@ mixin video(video)
                         div.video-mixin__title=video.title
                     a.video-mixin__owner(href=`/users/${video.owner._id}`)
                         span #{video.owner.username}
-                        span #{video.meta.views} 회 • #{new Date(video.createdAt).toLocaleString("ko-KR", {dateStyle: "short", timeStyle: "short"})}
+                        span #{video.meta.views} 회 • #{getTimeStamp(video.createdAt)}
