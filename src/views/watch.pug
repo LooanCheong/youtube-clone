@@ -13,9 +13,15 @@ block content
         -} else if (elapsedTime < 86400) {
         -const hours = Math.floor(elapsedTime / 3600);
         -return `${String(hours)}시간 전`;
-        -} else {
+        -} else if(elapsedTime < 2592000) {
         -const days = Math.floor(elapsedTime / 86400);
         -return `${String(days)}일 전`;
+        -} else if (elapsedTime < 31104000){
+        -const months = Math.floor(elapsedTime / 2592000)
+        -return `${String(months)}개월 전`;
+        -} else {
+        -   const years = Math.floor(elapsedTime / 31104000)
+        -return `${String(years)}년 전`;
         -}
     -}
 
