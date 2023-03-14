@@ -74,7 +74,8 @@ block content
         ul
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
-                    img.video__comment-avatar(src=comment.owner.avatarUrl)
+                    a(href=`/users/${comment.owner._id}`)
+                        img.video__comment-avatar(src=comment.owner.avatarUrl)
                     span  #{comment.text}
                     if loggedIn
                         button#video__comment-like
