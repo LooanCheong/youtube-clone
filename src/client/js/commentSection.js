@@ -24,7 +24,7 @@ const addComment = (text, id, owner) => {
   newComment.className = "video__comment";
   const img = document.createElement("img");
   img.className = "video__comment-avatar";
-  img.src = "/" + owner.avatarUrl;
+  img.src = owner.avatarUrl;
   const span = document.createElement("span");
   span.innerText = `  ${text}`;
   const span2 = document.createElement("span");
@@ -41,10 +41,13 @@ const addComment = (text, id, owner) => {
   btnSpan.innerText = " 0";
   btn.appendChild(i);
   btn.appendChild(btnSpan);
+  const timeSpan = document.createElement("span");
+  timeSpan.innerText = "방금 전";
   newComment.appendChild(img);
   newComment.appendChild(span);
   newComment.appendChild(span2);
   newComment.appendChild(btn);
+  newComment.appendChild(timeSpan);
   newComment.addEventListener("click", handleCommentLike);
   videoComments.prepend(newComment);
   updateCommentCount();
