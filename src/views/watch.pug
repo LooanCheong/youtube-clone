@@ -1,6 +1,24 @@
 extends base
 
 block content
+    -function getTimeStamp(time) {
+        -const now = new Date().getTime();
+        -const elapsedTime = (now - time) / 1000;
+        
+        -if (elapsedTime < 60) {
+        -return "방금 전";
+        -} else if (elapsedTime < 3600) {
+        -const minutes = Math.floor(elapsedTime / 60);
+        -return `${String(minutes)}분 전`;
+        -} else if (elapsedTime < 86400) {
+        -const hours = Math.floor(elapsedTime / 3600);
+        -return `${String(hours)}시간 전`;
+        -} else {
+        -const days = Math.floor(elapsedTime / 86400);
+        -return `${String(days)}일 전`;
+        -}
+    -}
+
     div#videoContainer(data-id=video._id)
         video(src=video.fileUrl)
         div#videoControls.videoControls
@@ -58,7 +76,7 @@ block content
                             span#video__comment-like-count  #{comment.like.length}
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span#commentDeleteBtn.video__comment-delete ❌
-                        span #{new Date(comment.createdAt).toLocaleString("ko-KR", {dateStyle: "short", timeStyle: "short"})}
+                        span=getTimeStamp(comment.createdAt)
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn
