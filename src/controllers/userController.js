@@ -135,9 +135,16 @@ export const finishGithubLogin = async (req, res) => {
   }
 };
 
+const isServer = process.env.NODE_ENV === "production";
+
 export const startKakaoLogin = (req, res) => {
   const REST_API_KEY = process.env.KKT_CLIENT;
-  const REDIRECT_URI = "http://localhost:4000/users/kakao/finish";
+  let REDIRECT_URI = "";
+  if (isServer) {
+    REDIRECT_URI = "https://mytube.fly.dev/users/kakao/finish";
+  } else {
+    REDIRECT_URI = "http://localhost:4000/users/kakao/finish";
+  }
   const finalUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return res.redirect(finalUrl);
@@ -148,7 +155,9 @@ export const finishKakaoLogin = async (req, res) => {
     client_id: process.env.KKT_CLIENT,
     client_secret: process.env.KKT_SECRET,
     grant_type: "authorization_code",
-    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    redirect_uri: isServer
+      ? "https://mytube.fly.dev/users/kakao/finish"
+      : "http://localhost:4000/users/kakao/finish",
     code: req.query.code,
   };
   const params = new URLSearchParams(options).toString();
@@ -201,7 +210,9 @@ export const startNaverLogin = (req, res) => {
   const config = {
     response_type: "code",
     client_id: process.env.NAVER_CLIENT,
-    redirect_uri: "http://localhost:4000/users/naver/finish",
+    redirect_uri: isServer
+      ? "https://mytube.fly.dev/users/naver/finish"
+      : "http://localhost:4000/users/naver/finish",
     state: "test",
   };
   const params = new URLSearchParams(config).toString();
@@ -238,7 +249,6 @@ export const finishNaverLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userReq.response.email);
     const name = userReq.response.name;
     const email = userReq.response.email;
     const randomString = Math.random().toString(36).substr(2, 10);
