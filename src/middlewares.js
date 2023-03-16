@@ -9,6 +9,8 @@ const s3 = new aws.S3({
   },
 });
 
+const isServer = process.env.NODE_ENV === "production";
+
 const s3ImageUploader = multerS3({
   s3: s3,
   bucket: "plam/images",
@@ -50,11 +52,11 @@ export const publicOnlyMiddleware = (req, res, next) => {
 export const avatarUpload = multer({
   dest: "uploads/avatars",
   limits: { fileSize: 3000000 },
-  storage: s3ImageUploader,
+  storage: isServer ? s3ImageUploader : undefined,
 });
 
 export const videoUpload = multer({
   dest: "uploads/videos",
   limits: { fileSize: 10000000 },
-  storage: s3VideoUploader,
+  storage: isServer ? s3VideoUploader : undefined,
 });
