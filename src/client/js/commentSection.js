@@ -22,9 +22,12 @@ const addComment = (text, id, owner) => {
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
+  const a = document.createElement("a");
+  a.href = `/users/${owner._id}`;
   const img = document.createElement("img");
   img.className = "video__comment-avatar";
   img.src = owner.avatarUrl;
+  a.appendChild(img);
   const span = document.createElement("span");
   span.innerText = `  ${text}`;
   const span2 = document.createElement("span");
@@ -41,14 +44,14 @@ const addComment = (text, id, owner) => {
   btnSpan.innerText = " 0";
   btn.appendChild(i);
   btn.appendChild(btnSpan);
+  btn.addEventListener("click", handleCommentLike);
   const timeSpan = document.createElement("span");
   timeSpan.innerText = "방금 전";
-  newComment.appendChild(img);
+  newComment.appendChild(a);
   newComment.appendChild(span);
   newComment.appendChild(span2);
   newComment.appendChild(btn);
   newComment.appendChild(timeSpan);
-  newComment.addEventListener("click", handleCommentLike);
   videoComments.prepend(newComment);
   updateCommentCount();
 };
@@ -181,4 +184,6 @@ const handleUserFollow = async () => {
 
 //이벤트 핸들러
 videoLikeBtn.addEventListener("click", handleVideoLike);
-followBtn.addEventListener("click", handleUserFollow);
+if (followBtn) {
+  followBtn.addEventListener("click", handleUserFollow);
+}
