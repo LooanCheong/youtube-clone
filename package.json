@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/LooanCheong/youtube-clone#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.292.0",
     "@ffmpeg/core": "^0.8.5",
     "@ffmpeg/ffmpeg": "^0.9.7",
     "aws-sdk": "^2.1333.0",
