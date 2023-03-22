@@ -29,11 +29,16 @@
   }
 }
 .video__controller {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
   a {
-    display: flex;
-    width: 110px;
-    height: 20px;
+    width: 120px;
+    height: 30px;
     margin: 10px 0;
+    border: 1px solid white;
+    border-radius: 20px;
+    background-color: #08469a;
   }
 }
 
