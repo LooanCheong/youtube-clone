@@ -15,7 +15,7 @@ export const watch = async (req, res) => {
     .populate({ path: "owner" })
     .populate({
       path: "comments",
-      populate: { path: "owner", select: "avatarUrl" },
+      populate: { path: "owner" },
     });
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
