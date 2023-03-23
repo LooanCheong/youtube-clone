@@ -71,6 +71,7 @@ block content
                 button 댓글 작성
     div.video__comments
         span#video__comments-count 댓글 #{video.comments.length}개
+        br
         ul
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
@@ -85,7 +86,7 @@ block content
                             span#video__comment-like-count  #{comment.like.length}
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span#commentDeleteBtn.video__comment-delete ❌
-                        span=getTimeStamp(comment.createdAt)
+                    span=getTimeStamp(comment.createdAt)
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn
