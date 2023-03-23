@@ -45,48 +45,65 @@ block content
                     i.fas.fa-expand
     div.video__data#video__data(data-id=video.owner._id)
         p.video__title=video.title
-        small.video__owner
-            a(href=`/users/${video.owner._id}`)
-                img.video__owner-avatar(src=video.owner.avatarUrl)
-            a.video__owner-name(href=`/users/${video.owner._id}`)=video.owner.username
-        small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'}) + " 업로드"
+        div.video__owner-plus
+            small.video__owner
+                a(href=`/users/${video.owner._id}`)
+                    img.video__owner-avatar(src=video.owner.avatarUrl)
+                div.video__owner-info
+                    a.video__owner-name(href=`/users/${video.owner._id}`)=video.owner.username
+                    span.video__owner-follower 구독자 #{video.owner.follower.length}명
+                div.video__owner-follow
+                    if String(video.owner._id) !== String(loggedInUser._id)
+                        button#video__user__follow
+                            if video.owner.follower.includes(loggedInUser._id)
+                                | 구독중
+                            else
+                                | 구독
+            div.video__user-control
+                button#video__like
+                    i.fas.fa-thumbs-up
+                    span#video__like-count  #{video.like.length}
+        div.video__info
+            div.video__info-detail
+                span.video__view 조회수 #{video.meta.views}회
+                span.video__createdAt=getTimeStamp(video.createdAt)
+                span.video__hashtags=video.hashtags
+            div.video__description
+                span=video.description
         if String(video.owner._id) === String(loggedInUser._id)
             div.video__controller
                 a.edit-video(href=`${video.id}/edit`) 비디오 수정
                 a.delete-video(href=`${video.id}/delete`) 비디오 삭제
-    div.video__user-control
-        button#video__like
-            i.fas.fa-thumbs-up
-            span#video__like-count  #{video.like.length}
-        if String(video.owner._id) !== String(loggedInUser._id)
-            button#video__user__follow
-                if video.owner.follower.includes(loggedInUser._id)
-                    | 구독중
-                else
-                    | 구독
+
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
+                div.video__add-comments-owner
+                    img(src=loggedInUser.avatarUrl )
                 textarea#textarea(cols="30", rows="10", placeholder="댓글 추가...")
-                button 댓글 작성
+                button 댓글
     div.video__comments
         span#video__comments-count 댓글 #{video.comments.length}개
         br
         ul
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
-                    a(href=`/users/${comment.owner._id}`)
-                        img.video__comment-avatar(src=comment.owner.avatarUrl)
-                    a(href=`/users/${comment.owner._id}`)
-                        span=comment.owner.username
-                    span  #{comment.text}
-                    if loggedIn
-                        button#video__comment-like
-                            i.fas.fa-thumbs-up
-                            span#video__comment-like-count  #{comment.like.length}
+                    div.video__comment-user-avatar
+                        a(href=`/users/${comment.owner._id}`)
+                            img.video__comment-avatar(src=comment.owner.avatarUrl)
+                    div.video__comment-box
+                        div.video__comment-owner-info
+                            a(href=`/users/${comment.owner._id}`)
+                                span=comment.owner.username
+                            span.video__comment-createdAt=getTimeStamp(comment.createdAt)
+                        div.video__comment-text
+                            span  #{comment.text}
+                        if loggedIn
+                            button#video__comment-like
+                                i.fas.fa-thumbs-up
+                                span#video__comment-like-count  #{comment.like.length}
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span#commentDeleteBtn.video__comment-delete ❌
-                    span=getTimeStamp(comment.createdAt)
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn
