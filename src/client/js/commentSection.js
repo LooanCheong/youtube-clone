@@ -117,6 +117,9 @@ const handleCommentLike = async (e) => {
   if (commentBlock.nodeName != "LI") {
     commentBlock = commentBlock.parentNode;
   }
+  if (commentBlock.nodeName != "LI") {
+    commentBlock = commentBlock.parentNode;
+  }
   const commentId = commentBlock.dataset.id;
 
   const response = await fetch(`/api/comments/${commentId}/like`, {
